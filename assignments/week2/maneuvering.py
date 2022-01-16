@@ -110,24 +110,45 @@ def three_point_turning(px):
 
 if __name__ == "__main__":
 	px = Picarx()
-	# print("starting first")
-	# time.sleep(1)
-	# forward_and_backward(px)
-	# print("first done")
-	# time.sleep(3)
-	# print("starting second")
-	# time.sleep(1)
-	# parallel_parking_right(px)
-	# # print("second done")
-	# time.sleep(3)
-	# print("starting third")
-	# time.sleep(1)
-	# parallel_parking_left(px)
-	# print("third done")
-	time.sleep(3)
-	print("starting fourth")
-	time.sleep(1)
-	three_point_turning(px)
-	print("fourth done")
+	print("Enter 1 for Parallel Parking Right")
+	print("Enter 2 for Parallel Parking Left")
+	print("Enter 3 for Three Point Turning")
+	print("Enter 4 for Forward and Backward")
+	print("Enter 0 to exit")
+	x = input()
+
+	while(x != 0):
+		px.set_dir_servo_angle(0)
+		if x==1:
+			parallel_parking_right(px)
+		else if x==2:
+			parallel_parking_left(px)
+		else if x==3:
+			three_point_turning(px)
+		else if x==4:
+			forward_and_backward(px)
+	    else:
+			print("Enter 1 for Parallel Parking Right")
+			print("Enter 2 for Parallel Parking Left")
+			print("Enter 3 for Three Point Turning")
+			print("Enter 4 for Forward and Backward")
+			print("Enter 0 to exit")
+			x = input()
+			time.sleep(2)
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
