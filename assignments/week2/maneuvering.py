@@ -116,8 +116,9 @@ if __name__ == "__main__":
 	print("Enter 4 for Forward and Backward")
 	print("Enter 0 to exit")
 	x = input()
-
+	print(x)
 	while(x != 0):
+		print(x)
 		px.set_dir_servo_angle(0)
 		if x==1:
 			parallel_parking_right(px)
@@ -128,13 +129,14 @@ if __name__ == "__main__":
 		elif x==4:
 			forward_and_backward(px)
 		else:
-			print("Enter 1 for Parallel Parking Right")
-			print("Enter 2 for Parallel Parking Left")
-			print("Enter 3 for Three Point Turning")
-			print("Enter 4 for Forward and Backward")
-			print("Enter 0 to exit")
-			x = input()
-			time.sleep(2)
+			print("Enter valid selection")
+		print("Enter 1 for Parallel Parking Right")
+		print("Enter 2 for Parallel Parking Left")
+		print("Enter 3 for Three Point Turning")
+		print("Enter 4 for Forward and Backward")
+		print("Enter 0 to exit")
+		x = input()
+		time.sleep(2)
 
 
 
