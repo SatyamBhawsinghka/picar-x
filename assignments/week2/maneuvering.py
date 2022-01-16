@@ -121,11 +121,11 @@ if __name__ == "__main__":
 		px.set_dir_servo_angle(0)
 		if x==1:
 			parallel_parking_right(px)
-		else if x==2:
+		elif x==2:
 			parallel_parking_left(px)
-		else if x==3:
+		elif x==3:
 			three_point_turning(px)
-		else if x==4:
+		elif x==4:
 			forward_and_backward(px)
 	    else:
 			print("Enter 1 for Parallel Parking Right")
@@ -136,7 +136,7 @@ if __name__ == "__main__":
 			x = input()
 			time.sleep(2)
 
-			
+
 
 
 
