@@ -7,7 +7,7 @@ import logging
 logging_format = "%(asctime)s: %(message)s"
 logging.basicConfig(format=logging_format, level=logging.INFO, datefmt="%H:%M:%S")
 # logging.basicConfig(format=logging_format, level=logging.DEBUG, datefmt="%H:%M:%S")
-from logdecorator import log_on_start, log_on_end, log_on_error
+#from logdecorator import log_on_start, log_on_end, log_on_error
 try:
     # from ezblock import *
     # from ezblock import __reset_mcu_
@@ -28,9 +28,9 @@ class Picarx(object):
     PRESCALER = 10
     TIMEOUT = 0.02
 
-    @log_on_start(logging.DEBUG, "Constructor called ")
-    @log_on_error(logging.DEBUG, "Error in constructor call")
-    @log_on_end(logging.DEBUG, "Constructor finished")
+#    @log_on_start(logging.DEBUG, "Constructor called ")
+#    @log_on_error(logging.DEBUG, "Error in constructor call")
+#    @log_on_end(logging.DEBUG, "Constructor finished")
     def __init__(self):
         atexit.register(self.stop)
         self.dir_servo_pin = Servo(PWM('P2'))
@@ -64,9 +64,9 @@ class Picarx(object):
             pin.period(self.PERIOD)
             pin.prescaler(self.PRESCALER)
 
-    @log_on_start(logging.DEBUG, "set_motor_speed called ")
-    @log_on_error(logging.DEBUG, "Error in set_motor_speed call")
-    @log_on_end(logging.DEBUG, "set_motor_speed finished")
+#    @log_on_start(logging.DEBUG, "set_motor_speed called ")
+#    @log_on_error(logging.DEBUG, "Error in set_motor_speed call")
+#    @log_on_end(logging.DEBUG, "set_motor_speed finished")
     def set_motor_speed(self, motor, speed):
         # global cali_speed_value,cali_dir_value
         motor -= 1
@@ -87,9 +87,9 @@ class Picarx(object):
             self.motor_direction_pins[motor].low()
             self.motor_speed_pins[motor].pulse_width_percent(speed)
 
-    @log_on_start(logging.DEBUG, "motor_speed_calibration called ")
-    @log_on_error(logging.DEBUG, "Error in motor_speed_calibration call")
-    @log_on_end(logging.DEBUG, "motor_speed_calibration finished")
+#    @log_on_start(logging.DEBUG, "motor_speed_calibration called ")
+#    @log_on_error(logging.DEBUG, "Error in motor_speed_calibration call")
+#    @log_on_end(logging.DEBUG, "motor_speed_calibration finished")
     def motor_speed_calibration(self, value):
         # global cali_speed_value,cali_dir_value
         self.cali_speed_value = value
@@ -100,9 +100,9 @@ class Picarx(object):
             self.cali_speed_value[0] = abs(self.cali_speed_value)
             self.cali_speed_value[1] = 0
 
-    @log_on_start(logging.DEBUG, "motor_direction_calibration called ")
-    @log_on_error(logging.DEBUG, "Error in motor_direction_calibration call")
-    @log_on_end(logging.DEBUG, "motor_direction_calibration finished")
+#    @log_on_start(logging.DEBUG, "motor_direction_calibration called ")
+#    @log_on_error(logging.DEBUG, "Error in motor_direction_calibration call")
+#    @log_on_end(logging.DEBUG, "motor_direction_calibration finished")
     def motor_direction_calibration(self, motor, value):
         # 0: positive direction
         # 1:negative direction
@@ -112,9 +112,9 @@ class Picarx(object):
             self.cali_dir_value[motor] = -1 * self.cali_dir_value[motor]
         self.config_flie.set("picarx_dir_motor", self.cali_dir_value)
 
-    @log_on_start(logging.DEBUG, "dir_servo_angle_calibration called ")
-    @log_on_error(logging.DEBUG, "Error in dir_servo_angle_calibration call")
-    @log_on_end(logging.DEBUG, "dir_servo_angle_calibration finished")
+#    @log_on_start(logging.DEBUG, "dir_servo_angle_calibration called ")
+#    @log_on_error(logging.DEBUG, "Error in dir_servo_angle_calibration call")
+#    @log_on_end(logging.DEBUG, "dir_servo_angle_calibration finished")
     def dir_servo_angle_calibration(self, value):
         # global dir_cal_value
         self.dir_cal_value = value
@@ -122,9 +122,9 @@ class Picarx(object):
         self.config_flie.set("picarx_dir_servo", "%s" % value)
         self.dir_servo_pin.angle(value)
 
-    @log_on_start(logging.DEBUG, "set_dir_servo_angle called ")
-    @log_on_error(logging.DEBUG, "Error in set_dir_servo_angle call")
-    @log_on_end(logging.DEBUG, "set_dir_servo_angle finished")
+#    @log_on_start(logging.DEBUG, "set_dir_servo_angle called ")
+#    @log_on_error(logging.DEBUG, "Error in set_dir_servo_angle call")
+#    @log_on_end(logging.DEBUG, "set_dir_servo_angle finished")
     def set_dir_servo_angle(self, value):
         # global dir_cal_value
         self.dir_current_angle = value
@@ -134,9 +134,9 @@ class Picarx(object):
         # print("set_dir_servo_angle_2:",dir_cal_value)
         self.dir_servo_pin.angle(angle_value)
 
-    @log_on_start(logging.DEBUG, "camera_servo1_angle_calibration called ")
-    @log_on_error(logging.DEBUG, "Error in camera_servo1_angle_calibration call")
-    @log_on_end(logging.DEBUG, "camera_servo1_angle_calibration finished")
+#    @log_on_start(logging.DEBUG, "camera_servo1_angle_calibration called ")
+#    @log_on_error(logging.DEBUG, "Error in camera_servo1_angle_calibration call")
+#    @log_on_end(logging.DEBUG, "camera_servo1_angle_calibration finished")
     def camera_servo1_angle_calibration(self, value):
         # global cam_cal_value_1dir_current_angle
         self.cam_cal_value_1 = value
@@ -144,9 +144,9 @@ class Picarx(object):
         print("cam_cal_value_1:", self.cam_cal_value_1)
         self.camera_servo_pin1.angle(value)
 
-    @log_on_start(logging.DEBUG, "camera_servo2_angle_calibration called ")
-    @log_on_error(logging.DEBUG, "Error in camera_servo2_angle_calibration call")
-    @log_on_end(logging.DEBUG, "camera_servo2_angle_calibration finished")
+#    @log_on_start(logging.DEBUG, "camera_servo2_angle_calibration called ")
+#    @log_on_error(logging.DEBUG, "Error in camera_servo2_angle_calibration call")
+#    @log_on_end(logging.DEBUG, "camera_servo2_angle_calibration finished")
     def camera_servo2_angle_calibration(self, value):
         # global cam_cal_value_2
         self.cam_cal_value_2 = value
@@ -154,27 +154,27 @@ class Picarx(object):
         print("picarx_cam2_servo:", self.cam_cal_value_2)
         self.camera_servo_pin2.angle(value)
 
-    @log_on_start(logging.DEBUG, "set_camera_servo1_angle called ")
-    @log_on_error(logging.DEBUG, "Error in set_camera_servo1_angle call")
-    @log_on_end(logging.DEBUG, "set_camera_servo1_angle finished")
+#    @log_on_start(logging.DEBUG, "set_camera_servo1_angle called ")
+#    @log_on_error(logging.DEBUG, "Error in set_camera_servo1_angle call")
+#    @log_on_end(logging.DEBUG, "set_camera_servo1_angle finished")
     def set_camera_servo1_angle(self, value):
         # global cam_cal_value_1
         self.camera_servo_pin1.angle(-1 * (value + -1 * self.cam_cal_value_1))
         # print("self.cam_cal_value_1:",self.cam_cal_value_1)
         print((value + self.cam_cal_value_1))
 
-    @log_on_start(logging.DEBUG, "set_camera_servo2_angle called ")
-    @log_on_error(logging.DEBUG, "Error in set_camera_servo2_angle call")
-    @log_on_end(logging.DEBUG, "set_camera_servo2_angle finished")
+#    @log_on_start(logging.DEBUG, "set_camera_servo2_angle called ")
+#    @log_on_error(logging.DEBUG, "Error in set_camera_servo2_angle call")
+#    @log_on_end(logging.DEBUG, "set_camera_servo2_angle finished")
     def set_camera_servo2_angle(self, value):
         # global cam_cal_value_2
         self.camera_servo_pin2.angle(-1 * (value + -1 * self.cam_cal_value_2))
         # print("self.cam_cal_value_2:",self.cam_cal_value_2)
         print((value + self.cam_cal_value_2))
 
-    @log_on_start(logging.DEBUG, "get_adc_value called ")
-    @log_on_error(logging.DEBUG, "Error in get_adc_value call")
-    @log_on_end(logging.DEBUG, "get_adc_value finished")
+#    @log_on_start(logging.DEBUG, "get_adc_value called ")
+#    @log_on_error(logging.DEBUG, "Error in get_adc_value call")
+#    @log_on_end(logging.DEBUG, "get_adc_value finished")
     def get_adc_value(self):
         adc_value_list = []
         adc_value_list.append(self.S0.read())
@@ -182,16 +182,16 @@ class Picarx(object):
         adc_value_list.append(self.S2.read())
         return adc_value_list
 
-    @log_on_start(logging.DEBUG, "set_power called ")
-    @log_on_error(logging.DEBUG, "Error in set_power call")
-    @log_on_end(logging.DEBUG, "set_power finished")
+#    @log_on_start(logging.DEBUG, "set_power called ")
+#    @log_on_error(logging.DEBUG, "Error in set_power call")
+#    @log_on_end(logging.DEBUG, "set_power finished")
     def set_power(self, speed):
         self.set_motor_speed(1, speed)
         self.set_motor_speed(2, speed)
 
-    @log_on_start(logging.DEBUG, "backward called ")
-    @log_on_error(logging.DEBUG, "Error in backward call")
-    @log_on_end(logging.DEBUG, "backward finished")
+#    @log_on_start(logging.DEBUG, "backward called ")
+#    @log_on_error(logging.DEBUG, "Error in backward call")
+#    @log_on_end(logging.DEBUG, "backward finished")
     def backward(self, speed):
         current_angle = self.dir_current_angle
         if current_angle != 0:
@@ -211,9 +211,9 @@ class Picarx(object):
             self.set_motor_speed(1, -1 * speed)
             self.set_motor_speed(2, speed)
 
-    @log_on_start(logging.DEBUG, "forward called ")
-    @log_on_error(logging.DEBUG, "Error in forward call")
-    @log_on_end(logging.DEBUG, "forward finished")
+#    @log_on_start(logging.DEBUG, "forward called ")
+#    @log_on_error(logging.DEBUG, "Error in forward call")
+#    @log_on_end(logging.DEBUG, "forward finished")
     def forward(self, speed):
         current_angle = self.dir_current_angle
         if current_angle != 0:
@@ -234,16 +234,16 @@ class Picarx(object):
             self.set_motor_speed(2, -1 * speed)
 
 
-    @log_on_start(logging.DEBUG, "stop called ")
-    @log_on_error(logging.DEBUG, "Error in stop call")
-    @log_on_end(logging.DEBUG, "stop finished")
+#    @log_on_start(logging.DEBUG, "stop called ")
+#    @log_on_error(logging.DEBUG, "Error in stop call")
+#    @log_on_end(logging.DEBUG, "stop finished")
     def stop(self):
         self.set_motor_speed(1, 0)
         self.set_motor_speed(2, 0)
 
-    @log_on_start(logging.DEBUG, "Get_distance called ")
-    @log_on_error(logging.DEBUG, "Error in Get_distance call")
-    @log_on_end(logging.DEBUG, "Get_distance finished")
+#    @log_on_start(logging.DEBUG, "Get_distance called ")
+#    @log_on_error(logging.DEBUG, "Error in Get_distance call")
+#    @log_on_end(logging.DEBUG, "Get_distance finished")
     def Get_distance(self):
         timeout = 0.01
         trig = Pin('D8')
