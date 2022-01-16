@@ -88,7 +88,7 @@ def three_point_turning(px):
 	px.set_dir_servo_angle(-35)
 	time.sleep(0.1)
 	px.forward(30)
-	time.sleep(0.5)
+	time.sleep(0.75)
 	px.forward(0)
 	px.set_dir_servo_angle(35)
 	time.sleep(0.1)
@@ -98,8 +98,9 @@ def three_point_turning(px):
 	px.set_dir_servo_angle(-35)
 	time.sleep(0.1)
 	px.forward(30)
-	time.sleep(0.5)
+	time.sleep(0.75)
 	px.forward(0)
+	
 	
 
 if __name__ == "__main__":
