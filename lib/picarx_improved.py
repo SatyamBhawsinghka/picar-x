@@ -16,6 +16,8 @@ try:
     from pin import Pin
     from adc import ADC
     from filedb import fileDB
+    from utils import reset_mcu
+    reset_mcu()
 
     # __reset_mcu__()
     time.sleep(0.01)
