@@ -12,25 +12,22 @@ class Sensing(Picarx):
         self.chn_2 = self.S2
         self.ref = ref
 
-
-
     def get_data(self):
         return self.get_adc_value()
 
-
-    def get_line_status(self, fl_list):
-
-        if fl_list[0] > self.ref and fl_list[1] > self.ref and fl_list[2] > self.ref:
-            return 'stop'
-
-        elif fl_list[1] <= self.ref:
-            return 'forward'
-
-        elif fl_list[0] <= self.ref:
-            return 'right'
-
-        elif fl_list[2] <= self.ref:
-            return 'left'
+    # def get_line_status(self, fl_list):
+    #
+    #     if fl_list[0] > self.ref and fl_list[1] > self.ref and fl_list[2] > self.ref:
+    #         return 'stop'
+    #
+    #     elif fl_list[1] <= self.ref:
+    #         return 'forward'
+    #
+    #     elif fl_list[0] <= self.ref:
+    #         return 'right'
+    #
+    #     elif fl_list[2] <= self.ref:
+    #         return 'left'
 
 if __name__ == "__main__":
 
