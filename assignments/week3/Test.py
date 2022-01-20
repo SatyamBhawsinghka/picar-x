@@ -38,33 +38,39 @@ class Interpretation(Sensing):
 
     # Processing sensor data
     def processing(self):
+        direction = None
+        degree = None
         data = self.read()
-        r1 = data[1]/data[0]
-        r2 = data[1]/data[2]
+        print(data)
+        if self.polarity == 0:
+            r1 = data[1] / data[0]
+            r2 = data[1] / data[2]
 
-        # if self.polarity == 0:
-        #     if
+        if self.polarity == 1:
+            r1 = data[0] / data[1]
+            r2 = data[2] / data[1]
 
+        if r1 > self.sensitivity and r2 > self.sensitivity:
+            direction = 'center'
+            degree = 0
+        elif r1 > self.sensitivity > r2:
+            direction = 'left'
+            degree = r1-r2
+        elif r2 > self.sensitivity > r1:
+            direction = 'right'
+            degree = r2-r1
+        else:
+            direction = 'same'
+            degree = 0
 
-
-
-
-
-
-
-
-
-
-
-
-
+        return direction, degree
 
 
 if __name__ == "__main__":
 
     sample = Interpretation()
     while True:
-        out = sample.read()
-        print(out)
-        time.sleep(1)
+        direction, degree = sample.processing()
+        print(direction, degree)
+        time.sleep(10)
 
