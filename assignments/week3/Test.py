@@ -42,6 +42,8 @@ class Interpretation(Sensing):
         degree = None
         data = self.read()
         print(data)
+        print(data[0], data[1], data[2])
+        print(self.polarity)
         if self.polarity == 0:
             r1 = data[1] / data[0]
             r2 = data[1] / data[2]
@@ -98,5 +100,5 @@ if __name__ == "__main__":
     while True:
         direction, degree = sample.processing()
         print(direction, degree)
-        time.sleep(1)
+        time.sleep(5)
 
