@@ -57,10 +57,10 @@ class Interpretation(Sensing):
                 direction = 'right'
                 degree = r2-r1
             else:
-                if data[0] > self.sensitivity * data[1] and data[0] > self.sensitivity * data[2]:
+                if (data[0] > self.sensitivity * data[1]) and (data[0] > self.sensitivity * data[2]):
                     direction = 'right'
                     degree = 2 * data[0]/(data[1]+data[2])
-                if data[2] > self.sensitivity * data[1] and data[2] > self.sensitivity * data[0]:
+                if (data[2] > self.sensitivity * data[1]) and (data[2] > self.sensitivity * data[0]):
                     direction = 'left'
                     degree = 2 * data[2]/(data[1]+data[0])
                 else:
