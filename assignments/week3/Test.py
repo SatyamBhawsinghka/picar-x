@@ -63,7 +63,8 @@ class Interpretation(Sensing):
 if __name__ == "__main__":
 
     sample = Interpretation()
-    out = sample.read()
-    print(out)
-    time.sleep(1)
+    while True:
+        out = sample.read()
+        print(out)
+        time.sleep(1)
 
