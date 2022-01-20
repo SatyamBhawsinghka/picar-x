@@ -2,37 +2,66 @@ import sys
 sys.path.append(r'/home/satyam/picar-x/lib')
 from picarx_improved import Picarx
 import time
+import numpy
+
 
 
 class Sensing(Picarx):
-    def __init__(self, ref=1000):
+    def __init__(self):
         super().__init__()
-        self.chn_0 = self.S0
-        self.chn_1 = self.S1
-        self.chn_2 = self.S2
-        self.ref = ref
 
     def get_data(self):
         return self.get_adc_value()
 
-    # def get_line_status(self, fl_list):
-    #
-    #     if fl_list[0] > self.ref and fl_list[1] > self.ref and fl_list[2] > self.ref:
-    #         return 'stop'
-    #
-    #     elif fl_list[1] <= self.ref:
-    #         return 'forward'
-    #
-    #     elif fl_list[0] <= self.ref:
-    #         return 'right'
-    #
-    #     elif fl_list[2] <= self.ref:
-    #         return 'left'
+
+class Interpretation(Sensing):
+    def __init__(self, sensitivity=1.5, polarity=0):
+        super().__init__()
+        self.sensitivity = sensitivity
+        # Dark surface has lower readings and light surface has higher readings
+        # Sensitivity is the ratio of sensor value returned for light to dark readings
+        self.polarity = polarity
+        # Polarity of 0 means the line to be followed is light and has higher sensor readings
+        # Polarity of 1 means the line to be followed is dark and has lower sensor readings
+
+    # Returns normalized mean over 5 data values
+    def read(self):
+        values = []
+        out = []
+        for i in range(5):
+            values.append(self.get_data())
+        avg = numpy.mean(values, axis=0)
+        s = numpy.sum(avg)
+        for i in range(3):
+            out.append(avg[i]/s)
+        return out
+
+    # Processing sensor data
+    def processing(self):
+        data = self.read()
+        r1 = data[1]/data[0]
+        r2 = data[1]/data[2]
+
+        # if self.polarity == 0:
+        #     if
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
 
+    sample = Interpretation()
+    out = sample.read()
 
-    GM = Sensing(950)
-    while True:
-        print(GM.get_data())
-        time.sleep(1)
