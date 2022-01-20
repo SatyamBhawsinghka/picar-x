@@ -72,5 +72,5 @@ if __name__ == "__main__":
     while True:
         direction, degree = sample.processing()
         print(direction, degree)
-        time.sleep(10)
+        time.sleep(1)
 
