@@ -62,10 +62,10 @@ class Interpretation(Sensing):
         elif 1 < r1 < self.sensitivity and 1 < r2 < self.sensitivity:
             direction = 'same'
             degree = 0
-        elif r1 < 1 :
+        elif r1 < 1 < r2:
             direction = 'right'
             degree = 1/r1 - 1/r2
-        elif r2 < 1 :
+        elif r2 < 1 < r1:
             direction = 'left'
             degree = 1/r2 - 1/r1
 
