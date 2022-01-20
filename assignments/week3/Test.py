@@ -56,16 +56,15 @@ class Interpretation(Sensing):
             elif r2 > self.sensitivity > r1:
                 direction = 'right'
                 degree = r2-r1
+            elif (data[0] > self.sensitivity * data[1]) and (data[0] > self.sensitivity * data[2]):
+                direction = 'right'
+                degree = 2 * data[0]/(data[1]+data[2])
+            elif (data[2] > self.sensitivity * data[1]) and (data[2] > self.sensitivity * data[0]):
+                direction = 'left'
+                degree = 2 * data[2]/(data[1]+data[0])
             else:
-                if (data[0] > self.sensitivity * data[1]) and (data[0] > self.sensitivity * data[2]):
-                    direction = 'right'
-                    degree = 2 * data[0]/(data[1]+data[2])
-                if (data[2] > self.sensitivity * data[1]) and (data[2] > self.sensitivity * data[0]):
-                    direction = 'left'
-                    degree = 2 * data[2]/(data[1]+data[0])
-                else:
-                    direction = 'same'
-                    degree = 0
+                direction = 'same'
+                degree = 0
 
         if self.polarity == 1:
             r1 = data[0] / data[1]
