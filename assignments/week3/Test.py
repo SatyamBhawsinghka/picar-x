@@ -91,7 +91,7 @@ class Interpretation(Sensing):
 
 
 class Controller(Interpretation):
-    def __init__(self, scaling_factor=5):
+    def __init__(self, scaling_factor=10):
         super().__init__()
         self.scaling_factor = scaling_factor
 
