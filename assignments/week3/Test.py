@@ -15,7 +15,7 @@ class Sensing(Picarx):
 
 
 class Interpretation(Sensing):
-    def __init__(self, sensitivity=2, polarity=0):
+    def __init__(self, sensitivity=1, polarity=0):
         super().__init__()
         self.sensitivity = sensitivity
         # Dark surface has lower readings and light surface has higher readings
