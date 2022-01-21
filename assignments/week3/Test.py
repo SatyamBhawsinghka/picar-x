@@ -122,6 +122,6 @@ if __name__ == "__main__":
     car = Controller()
     angle = car.control(10)
     while angle != 100:
-        angle = car.control()
+        angle = car.control(10)
         car.forward(20)
         time.sleep(0.1)
