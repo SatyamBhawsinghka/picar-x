@@ -104,6 +104,7 @@ class Controller(Interpretation):
 
         if direction == 'same':
             self.stop()
+            self.set_dir_servo_angle(turn)
         else:
             self.set_dir_servo_angle(turn)
         return turn
