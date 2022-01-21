@@ -1,5 +1,5 @@
 import sys
-
+import atexit
 sys.path.append(r'/home/satyam/picar-x/lib')
 from picarx_improved import Picarx
 import time
@@ -121,7 +121,8 @@ if __name__ == "__main__":
 
     car = Controller()
     angle = car.control()
+    atexit.register(car.stop)
     while True:
         angle = car.control()
-        car.forward(20)
+        car.forward(30)
         time.sleep(0.05)
