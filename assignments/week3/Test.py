@@ -91,7 +91,7 @@ class Interpretation(Sensing):
 
 
 class Controller(Interpretation):
-    def __init__(self, scaling_factor=10):
+    def __init__(self, scaling_factor=15):
         super().__init__()
         self.scaling_factor = scaling_factor
 
@@ -103,14 +103,14 @@ class Controller(Interpretation):
             turn = -1 * turn
 
         if direction == 'same':
-            # self.stop()
+            self.stop()
             self.set_dir_servo_angle(0)
             time.sleep(0.01)
-            return 100
+
         else:
             self.set_dir_servo_angle(turn)
             time.sleep(0.01)
-            return turn
+        return turn
 
 
 
@@ -123,5 +123,5 @@ if __name__ == "__main__":
     angle = car.control()
     while True:
         angle = car.control()
-        car.forward(30)
+        car.forward(20)
         time.sleep(0.05)
