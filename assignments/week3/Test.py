@@ -107,6 +107,7 @@ class Controller(Interpretation):
             self.set_dir_servo_angle(0)
             time.sleep(0.01)
         else:
+            turn = 10
             self.set_dir_servo_angle(turn)
             time.sleep(0.01)
         return turn
