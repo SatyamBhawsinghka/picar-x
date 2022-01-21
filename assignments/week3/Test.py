@@ -91,7 +91,7 @@ class Interpretation(Sensing):
 
 
 class Controller(Interpretation):
-    def __init__(self, scaling_factor=15):
+    def __init__(self, scaling_factor=10):
         super().__init__()
         self.scaling_factor = scaling_factor
 
@@ -121,7 +121,7 @@ if __name__ == "__main__":
 
     car = Controller()
     angle = car.control()
-    while angle != 100:
+    while True:
         angle = car.control()
         car.forward(30)
         time.sleep(0.05)
