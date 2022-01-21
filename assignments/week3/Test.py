@@ -1,9 +1,9 @@
 import sys
+
 sys.path.append(r'/home/satyam/picar-x/lib')
 from picarx_improved import Picarx
 import time
 import numpy
-
 
 
 class Sensing(Picarx):
@@ -33,7 +33,7 @@ class Interpretation(Sensing):
         avg = numpy.mean(values, axis=0)
         s = numpy.sum(avg)
         for i in range(3):
-            out.append(avg[i]/s)
+            out.append(avg[i] / s)
         return out
 
     # Processing sensor data
@@ -41,9 +41,7 @@ class Interpretation(Sensing):
         direction = None
         degree = None
         data = self.read()
-        print(data)
-        print(data[0], data[1], data[2])
-        print(self.polarity)
+
         if self.polarity == 0:
             r1 = data[1] / data[0]
             r2 = data[1] / data[2]
@@ -52,16 +50,16 @@ class Interpretation(Sensing):
                 degree = 0
             elif r1 > self.sensitivity > r2:
                 direction = 'left'
-                degree = r1-r2
+                degree = r1 - r2
             elif r2 > self.sensitivity > r1:
                 direction = 'right'
-                degree = r2-r1
+                degree = r2 - r1
             elif (data[0] > self.sensitivity * data[1]) and (data[0] > self.sensitivity * data[2]):
                 direction = 'right'
-                degree = 2 * data[0]/(data[1]+data[2])
+                degree = 2 * data[0] / (data[1] + data[2])
             elif (data[2] > self.sensitivity * data[1]) and (data[2] > self.sensitivity * data[0]):
                 direction = 'left'
-                degree = 2 * data[2]/(data[1]+data[0])
+                degree = 2 * data[2] / (data[1] + data[0])
             else:
                 direction = 'same'
                 degree = 0
@@ -74,30 +72,51 @@ class Interpretation(Sensing):
                 degree = 0
             elif r1 > self.sensitivity > r2:
                 direction = 'left'
-                degree = r1-r2
+                degree = r1 - r2
             elif r2 > self.sensitivity > r1:
                 direction = 'right'
-                degree = r2-r1
+                degree = r2 - r1
             else:
                 if data[1] > self.sensitivity * data[0] and data[2] > self.sensitivity * data[0]:
                     direction = 'right'
-                    degree = 2 * data[0]/(data[1]+data[2])
+                    degree = 2 * data[0] / (data[1] + data[2])
                 if data[1] > self.sensitivity * data[2] and data[0] > self.sensitivity * data[2]:
                     direction = 'left'
-                    degree = 2 * data[2]/(data[1]+data[0])
+                    degree = 2 * data[2] / (data[1] + data[0])
                 else:
                     direction = 'same'
                     degree = 0
 
-
         return direction, degree
+
+
+class Controller(Interpretation):
+    def __init__(self, scaling_factor=5):
+        super().__init__()
+        self.scaling_factor = scaling_factor
+
+    def control(self):
+        direction, degree = self.processing()
+        turn = int(self.scaling_factor * degree)
+
+        if direction == 'right':
+            turn = -1 * turn
+
+        if direction == 'same':
+            self.stop()
+        else:
+            self.set_dir_servo_angle(turn)
+        return turn
+
+
+
+
 
 
 if __name__ == "__main__":
 
-    sample = Interpretation()
+    sample = Controller()
     while True:
-        direction, degree = sample.processing()
-        print(direction, degree)
-        time.sleep(5)
-
+        angle = sample.control()
+        print(angle)
+        time.sleep(1)
