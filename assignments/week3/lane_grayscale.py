@@ -118,7 +118,7 @@ class Controller(Interpretation):
 
 
 if __name__ == "__main__":
-
+    time.sleep(3)
     car = Controller()
     angle = car.control()
     atexit.register(car.stop)
