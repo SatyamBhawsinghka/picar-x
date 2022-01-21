@@ -104,9 +104,11 @@ class Controller(Interpretation):
 
         if direction == 'same':
             self.stop()
-            self.set_dir_servo_angle(turn)
+            self.set_dir_servo_angle(0)
+            time.sleep(0.01)
         else:
             self.set_dir_servo_angle(turn)
+            time.sleep(0.01)
         return turn
 
 
