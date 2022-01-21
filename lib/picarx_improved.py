@@ -35,7 +35,7 @@ class Picarx(object):
 #    @log_on_end(logging.DEBUG, "Constructor finished")
     def __init__(self):
         atexit.register(self.stop)
-        self.dir_servo_pin = Servo(PWM('P2'))
+        self.dir_servo_pin = Servo(PWM('P3'))
         self.camera_servo_pin1 = Servo(PWM('P0'))
         self.camera_servo_pin2 = Servo(PWM('P1'))
         self.config_flie = fileDB('/home/pi/.config')
