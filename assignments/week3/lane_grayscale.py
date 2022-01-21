@@ -91,9 +91,11 @@ class Interpretation(Sensing):
 
 
 class Controller(Interpretation):
-    def __init__(self, scaling_factor=15):
+    def __init__(self, scaling_factor=15, sensitivity=1.5, polarity=0):
         super().__init__()
         self.scaling_factor = scaling_factor
+        self.sensitivity = sensitivity
+        self.polarity = polarity
 
     def control(self):
         direction, degree = self.processing()
