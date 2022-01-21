@@ -106,11 +106,11 @@ class Controller(Interpretation):
             self.stop()
             self.set_dir_servo_angle(0)
             time.sleep(0.01)
+            return 100
         else:
-            turn = 10
             self.set_dir_servo_angle(turn)
             time.sleep(0.01)
-        return turn
+            return turn
 
 
 
@@ -119,8 +119,9 @@ class Controller(Interpretation):
 
 if __name__ == "__main__":
 
-    sample = Controller()
-    while True:
-        angle = sample.control()
-        print(angle)
-        time.sleep(1)
+    car = Controller()
+    angle = car.control()
+    while angle != 100:
+        angle = car.control()
+        car.forward(30)
+        time.sleep(0.1)
