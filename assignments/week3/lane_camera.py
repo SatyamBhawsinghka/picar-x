@@ -2,6 +2,7 @@ import sys
 import atexit
 import time
 import numpy
+import numpy as np
 import cv2
 
 try:
@@ -236,7 +237,7 @@ class Lane_camera(Picarx):
 
     def sensor(self):
         self.camera.capture(self.stream, format="bgr")
-        
+
         return self.stream.array
 
     def interpreter(self):
