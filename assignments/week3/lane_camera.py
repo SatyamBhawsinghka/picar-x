@@ -3,8 +3,8 @@ import atexit
 import time
 import numpy
 import cv2
+import io
 try:
-    from picamera.array import PiRGBArray
     from picamera import PiCamera
 except ImportError:
     print("No Picamera available ")
@@ -218,6 +218,11 @@ def make_points(frame, line):
     return [[x1, y1, x2, y2]]
 
 
+
+
+# Create an in-memory stream
+my_stream = io.BytesIO()
+
 class Lane_camera(Picarx):
     def __init__(self):
         super().__init__()
@@ -225,12 +230,11 @@ class Lane_camera(Picarx):
         self.camera.resolution = (640, 480)
         self.camera.start_preview()
         time.sleep(2)
-        self.rawCapture = PiRGBArray(self.camera, size=self.camera.resolution)
+
 
 
     def sensor(self):
-        # frame = self.camera.capture(self.rawCapture, format="bgr")
-        frame = self.camera.capture()
+        frame = self.camera.capture(my_stream, 'jpeg')
         print(frame)
         return frame
 
