@@ -267,6 +267,7 @@ if __name__ == "__main__":
         # car.forward(30)
         # time.sleep(0.05)
         cv2.destroyAllWindows()
+        car.stream = PiRGBArray(car.camera, size=car.camera.resolution)
 
 
 
