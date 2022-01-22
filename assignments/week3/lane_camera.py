@@ -14,51 +14,6 @@ except ImportError:
 sys.path.append(r'/home/satyam/picar-x/lib')
 from picarx_improved import Picarx
 
-class Lane_camera(Picarx):
-    def __init__(self):
-        super().__init__()
-        self.camera = PiCamera()
-        self.camera.resolution = (640, 480)
-        self.camera.start_preview()
-        time.sleep(2)
-        self.rawCapture = PiRGBArray(self.camera, size=self.camera.resolution)
-
-
-    def sensor(self):
-        return self.camera.capture(self.rawCapture, format="bgr")
-
-    def interpreter(self):
-        frame = self.sensor()
-        show_image("orig", frame)
-        time.sleep(1)
-        lane_lines, frame = detect_lane(frame)
-        degree = compute_steering_angle(frame, lane_lines)
-        curr_heading_image = display_heading_line(frame, degree)
-        show_image("heading", curr_heading_image)
-        time.sleep(5)
-        return degree
-
-    def controller(self, scaling_factor=0.5):
-        turn = scaling_factor * self.interpreter()
-        #self.set_dir_servo_angle(turn)
-        time.sleep(0.01)
-        return turn
-
-if __name__ == "__main__":
-
-    car = Lane_camera()
-    atexit.register(car.stop)
-    while True:
-        angle = car.controller()
-        print(angle)
-        # car.forward(30)
-        # time.sleep(0.05)
-        cv2.destroyAllWindows()
-
-
-
-
-
 ############################
 # Frame processing steps
 ############################
@@ -260,6 +215,54 @@ def make_points(frame, line):
     x1 = max(-width, min(2 * width, int((y1 - intercept) / slope)))
     x2 = max(-width, min(2 * width, int((y2 - intercept) / slope)))
     return [[x1, y1, x2, y2]]
+
+
+class Lane_camera(Picarx):
+    def __init__(self):
+        super().__init__()
+        self.camera = PiCamera()
+        self.camera.resolution = (640, 480)
+        self.camera.start_preview()
+        time.sleep(2)
+        self.rawCapture = PiRGBArray(self.camera, size=self.camera.resolution)
+
+
+    def sensor(self):
+        return self.camera.capture(self.rawCapture, format="bgr")
+
+    def interpreter(self):
+        frame = self.sensor()
+        show_image("orig", frame)
+        time.sleep(1)
+        lane_lines, frame = detect_lane(frame)
+        degree = compute_steering_angle(frame, lane_lines)
+        curr_heading_image = display_heading_line(frame, degree)
+        show_image("heading", curr_heading_image)
+        time.sleep(5)
+        return degree
+
+    def controller(self, scaling_factor=0.5):
+        turn = scaling_factor * self.interpreter()
+        #self.set_dir_servo_angle(turn)
+        time.sleep(0.01)
+        return turn
+
+if __name__ == "__main__":
+
+    car = Lane_camera()
+    atexit.register(car.stop)
+    while True:
+        angle = car.controller()
+        print(angle)
+        # car.forward(30)
+        # time.sleep(0.05)
+        cv2.destroyAllWindows()
+
+
+
+
+
+
 
 
 
