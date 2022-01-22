@@ -16,7 +16,7 @@ except ImportError:
 sys.path.append(r'/home/satyam/picar-x/lib')
 from picarx_improved import Picarx
 
-_SHOW_IMAGE = True
+_SHOW_IMAGE = False
 ############################
 # Frame processing steps
 ############################
@@ -242,12 +242,12 @@ class Lane_camera(Picarx):
 
     def interpreter(self):
         frame = self.sensor()
-        show_image("orig", frame)
+        show_image("orig", frame, True)
         time.sleep(1)
         lane_lines, frame = detect_lane(frame)
         degree = compute_steering_angle(frame, lane_lines)
         curr_heading_image = display_heading_line(frame, degree)
-        show_image("heading", curr_heading_image)
+        show_image("heading", curr_heading_image, True)
         time.sleep(5)
         return degree
 
