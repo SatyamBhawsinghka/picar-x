@@ -243,12 +243,12 @@ class Lane_camera(Picarx):
     def interpreter(self):
         frame = self.sensor()
         show_image("orig", frame, True)
-        time.sleep(1)
+        # time.sleep(1)
         lane_lines, frame = detect_lane(frame)
         degree = compute_steering_angle(frame, lane_lines)
         curr_heading_image = display_heading_line(frame, degree)
         show_image("heading", curr_heading_image, True)
-        time.sleep(5)
+        # time.sleep(5)
         return degree
 
     def controller(self, scaling_factor=0.5):
