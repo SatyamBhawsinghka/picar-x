@@ -251,9 +251,9 @@ class Lane_camera(Picarx):
         # time.sleep(5)
         return degree
 
-    def controller(self, scaling_factor=1):
-        turn = scaling_factor * self.interpreter()
-        #self.set_dir_servo_angle(turn)
+    def controller(self, scaling_factor=0.25):
+        turn = -1 * scaling_factor * self.interpreter()
+        self.set_dir_servo_angle(int(turn))
         time.sleep(0.01)
         return turn
 
@@ -264,8 +264,8 @@ if __name__ == "__main__":
     while True:
         angle = car.controller()
         print(angle)
-        # car.forward(30)
-        # time.sleep(0.05)
+        car.forward(30)
+        time.sleep(0.05)
         cv2.destroyAllWindows()
         car.stream = PiRGBArray(car.camera, size=car.camera.resolution)
 
