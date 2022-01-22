@@ -229,7 +229,9 @@ class Lane_camera(Picarx):
 
 
     def sensor(self):
-        return self.camera.capture(self.rawCapture, format="bgr")
+        frame = self.camera.capture(self.rawCapture, format="bgr")
+        print(frame)
+        return frame
 
     def interpreter(self):
         frame = self.sensor()
