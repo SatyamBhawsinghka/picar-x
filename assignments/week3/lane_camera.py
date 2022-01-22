@@ -14,6 +14,7 @@ except ImportError:
 sys.path.append(r'/home/satyam/picar-x/lib')
 from picarx_improved import Picarx
 
+_SHOW_IMAGE = True
 ############################
 # Frame processing steps
 ############################
