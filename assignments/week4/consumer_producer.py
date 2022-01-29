@@ -27,20 +27,21 @@ def consumer(delay, processor_bus, controller):
     while True:
         data = processor_bus.read()
         print("Processor bus data", data)
-        controller.control(data)
+        direction, degree = data[0], data[1]
+        controller.control(direction, degree)
         time.sleep(delay)
 
 if __name__ == "__main__":
     sensor = Sensing()
     processor = Interpretation()
     controller = Controller()
-    sensor_bus = Bus([0, 0, 0])
-    processor_bus = Bus([0])
+    sensor_bus = Bus()
+    processor_bus = Bus()
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            sense = executor.submit(producer, 0.2, sensor_bus, sensor)
-            process = executor.submit(consumer_producer, 0.1, sensor_bus, processor_bus, processor)
+            sense = executor.submit(producer, 0.05, sensor_bus, sensor)
+            process = executor.submit(consumer_producer, 0.05, sensor_bus, processor_bus, processor)
             control = executor.submit(consumer, 0.05, processor_bus, controller)
         print(sense.result())
         print(process.result())

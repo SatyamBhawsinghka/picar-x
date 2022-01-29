@@ -89,7 +89,7 @@ class Interpretation(object):
                     direction = 'same'
                     degree = 0
 
-        return direction, degree
+        return [direction, degree]
 
 
 class Controller(Picarx):
@@ -133,7 +133,8 @@ if __name__ == "__main__":
     try:
         while True:
             data = sensor.read()
-            direction, degree = processor.processing(data)
+            data = processor.processing(data)
+            direction, degree = data[0], data[1]
             controller.control(direction, degree)
 
     finally:
