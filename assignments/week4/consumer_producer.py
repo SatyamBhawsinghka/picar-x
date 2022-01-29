@@ -26,8 +26,8 @@ if __name__ == "__main__":
     sensor = Sensing()
     processor = Interpretation()
     controller = Controller()
-    sensor_bus = Bus()
-    processor_bus = Bus()
+    sensor_bus = Bus([0, 0, 0])
+    processor_bus = Bus([0])
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
