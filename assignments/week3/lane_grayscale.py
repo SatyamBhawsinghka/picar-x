@@ -128,10 +128,12 @@ if __name__ == "__main__":
     data = None
     direction = None
     degree = None
-    atexit.register(controller.stop)
-    while True:
-        data = sensor.read()
-        direction, degree = processor.processing(data)
-        controller.control(direction, degree)
-        controller.forward(30)
-        time.sleep(0.05)
+    try:
+        while True:
+            data = sensor.read()
+            direction, degree = processor.processing(data)
+            controller.control(direction, degree)
+            controller.forward(30)
+            time.sleep(0.05)
+    finally:
+        atexit.register(controller.stop)
