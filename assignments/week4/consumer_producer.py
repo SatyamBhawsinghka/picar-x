@@ -8,18 +8,26 @@ import atexit
 
 def producer(delay, sensor_bus, sensor):
     while True:
-        sensor_bus.write(sensor.read())
+        data = sensor.read()
+        print("Sensor data", data)
+        sensor_bus.write(data)
         time.sleep(delay)
 
 
 def consumer_producer(delay, sensor_bus, processor_bus, processor):
     while True:
-        processor_bus.write(processor.processing(sensor_bus.read()))
+        data = sensor_bus.read()
+        print("Sensor bus data", data)
+        data = processor.processing(data)
+        print("Processor data", data)
+        processor_bus.write(data)
         time.sleep(delay)
 
 def consumer(delay, processor_bus, controller):
     while True:
-        controller.control(processor_bus.read())
+        data = processor_bus.read()
+        print("Processor bus data", data)
+        controller.control(data)
         time.sleep(delay)
 
 if __name__ == "__main__":
