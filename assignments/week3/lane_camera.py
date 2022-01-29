@@ -240,8 +240,8 @@ class Lane_camera(Picarx):
 
         return self.stream.array
 
-    def interpreter(self):
-        frame = self.sensor()
+    def interpreter(self, frame):
+
         # show_image("orig", frame)
         # time.sleep(1)
         lane_lines, frame = detect_lane(frame)
@@ -251,8 +251,8 @@ class Lane_camera(Picarx):
         # time.sleep(5)
         return degree
 
-    def controller(self, scaling_factor=0.25):
-        turn = -1 * scaling_factor * self.interpreter()
+    def controller(self, scaling_factor=0.25, degree):
+        turn = -1 * scaling_factor * degree
         self.set_dir_servo_angle(int(turn))
         time.sleep(0.01)
         return turn
@@ -262,8 +262,9 @@ if __name__ == "__main__":
     car = Lane_camera()
     atexit.register(car.stop)
     while True:
-        angle = car.controller()
-        print(angle)
+        frame = car.sensor()
+        degree = car.interpreter(frame)
+        angle = car.controller(degree)
         car.forward(30)
         time.sleep(0.05)
         cv2.destroyAllWindows()
