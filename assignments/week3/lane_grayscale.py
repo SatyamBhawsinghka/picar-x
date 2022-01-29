@@ -113,7 +113,9 @@ class Controller(Picarx):
         else:
             self.set_dir_servo_angle(turn)
             time.sleep(0.01)
-        return turn
+
+        self.forward(30)
+        time.sleep(0.05)
 
 
 
@@ -133,7 +135,6 @@ if __name__ == "__main__":
             data = sensor.read()
             direction, degree = processor.processing(data)
             controller.control(direction, degree)
-            controller.forward(30)
-            time.sleep(0.05)
+
     finally:
         atexit.register(controller.stop)

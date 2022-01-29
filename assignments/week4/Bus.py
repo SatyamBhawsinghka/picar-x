@@ -1,9 +1,15 @@
+from readerwriterlock import rwlock
+
 class Bus(object):
     def __init__(self):
+        self.lock = rwlock.RWLockWriteD()
         self.message = None
 
     def write(self, data):
-        self.message = data
+        with self.lock.gen_wlock():
+            self.message = data
 
     def read(self):
-        return self.message
+        with self.lock.gen_rlock():
+            message = self.message
+        return message
