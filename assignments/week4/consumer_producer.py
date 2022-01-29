@@ -41,7 +41,7 @@ if __name__ == "__main__":
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             sense = executor.submit(producer, 0.2, sensor_bus, sensor)
             process = executor.submit(consumer_producer, 0.1, sensor_bus, processor_bus, processor)
-            control = executor.submit(consumer, 0.2, processor_bus, controller)
+            control = executor.submit(consumer, 0.05, processor_bus, controller)
         print(sense.result())
         print(process.result())
         print(control.result())
