@@ -13,17 +13,6 @@ class Sensing(Picarx):
     def get_data(self):
         return self.get_adc_value()
 
-
-class Interpretation(Sensing):
-    def __init__(self, sensitivity=1.5, polarity=0):
-        super().__init__()
-        self.sensitivity = sensitivity
-        # Dark surface has lower readings and light surface has higher readings
-        # Sensitivity is the ratio of sensor value returned for light to dark readings
-        self.polarity = polarity
-        # Polarity of 0 means the line to be followed is light and has higher sensor readings
-        # Polarity of 1 means the line to be followed is dark and has lower sensor readings
-
     # Returns normalized mean over 5 data values
     def read(self):
         values = []
@@ -36,11 +25,24 @@ class Interpretation(Sensing):
             out.append(avg[i] / s)
         return out
 
+
+class Interpretation(object):
+    def __init__(self, sensitivity=1.5, polarity=0):
+
+        self.sensitivity = sensitivity
+        # Dark surface has lower readings and light surface has higher readings
+        # Sensitivity is the ratio of sensor value returned for light to dark readings
+        self.polarity = polarity
+        # Polarity of 0 means the line to be followed is light and has higher sensor readings
+        # Polarity of 1 means the line to be followed is dark and has lower sensor readings
+
+
+
     # Processing sensor data
-    def processing(self):
+    def processing(self, data):
         direction = None
         degree = None
-        data = self.read()
+
 
         if self.polarity == 0:
             r1 = data[1] / data[0]
@@ -90,15 +92,14 @@ class Interpretation(Sensing):
         return direction, degree
 
 
-class Controller(Interpretation):
-    def __init__(self, scaling_factor=15, sensitivity=1.5, polarity=0):
+class Controller(Picarx):
+    def __init__(self, scaling_factor=15):
         super().__init__()
         self.scaling_factor = scaling_factor
-        self.sensitivity = sensitivity
-        self.polarity = polarity
 
-    def control(self):
-        direction, degree = self.processing()
+
+    def control(self, direction, degree):
+
         turn = int(self.scaling_factor * degree)
 
         if direction == 'right':
@@ -121,10 +122,16 @@ class Controller(Interpretation):
 
 if __name__ == "__main__":
     time.sleep(3)
-    car = Controller()
-    angle = car.control()
-    atexit.register(car.stop)
+    sensor = Sensing()
+    processor = Interpretation()
+    controller = Controller()
+    data = None
+    direction = None
+    degree = None
+    atexit.register(controller.stop)
     while True:
-        angle = car.control()
-        car.forward(30)
+        data = sensor.read()
+        direction, degree = processor.processing(data)
+        controller.control(direction, degree)
+        controller.forward(30)
         time.sleep(0.05)
