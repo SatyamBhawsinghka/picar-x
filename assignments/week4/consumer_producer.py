@@ -9,7 +9,7 @@ import atexit
 def producer(delay, sensor_bus, sensor):
     while True:
         data = sensor.read()
-        print("Sensor data", data)
+        # print("Sensor data", data)
         sensor_bus.write(data)
         time.sleep(delay)
 
@@ -17,16 +17,16 @@ def producer(delay, sensor_bus, sensor):
 def consumer_producer(delay, sensor_bus, processor_bus, processor):
     while True:
         data = sensor_bus.read()
-        print("Sensor bus data", data)
+        # print("Sensor bus data", data)
         data = processor.processing(data)
-        print("Processor data", data)
+        # print("Processor data", data)
         processor_bus.write(data)
         time.sleep(delay)
 
 def consumer(delay, processor_bus, controller):
     while True:
         data = processor_bus.read()
-        print("Processor bus data", data)
+        # print("Processor bus data", data)
         direction, degree = data[0], data[1]
         controller.control(direction, degree)
         time.sleep(delay)
@@ -43,9 +43,9 @@ if __name__ == "__main__":
             sense = executor.submit(producer, 0.05, sensor_bus, sensor)
             process = executor.submit(consumer_producer, 0.05, sensor_bus, processor_bus, processor)
             control = executor.submit(consumer, 0.05, processor_bus, controller)
-        print(sense.result())
-        print(process.result())
-        print(control.result())
+        # print(sense.result())
+        # print(process.result())
+        # print(control.result())
         # time.sleep(0.01)
     finally:
         atexit.register(controller.stop)
