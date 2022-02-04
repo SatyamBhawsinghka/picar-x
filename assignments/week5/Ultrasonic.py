@@ -29,7 +29,7 @@ class Interpretation(object):
 
     # Processing sensor data
     def processing(self, distance):
-        if data < self.stopping_range:
+        if distance < self.stopping_range:
             return 1
         else:
             return 0
@@ -45,10 +45,6 @@ class Interpretation(object):
 
         else:
             self.stop()
-
-
-
-
 
 
 
