@@ -55,7 +55,7 @@ class Interpretation(object):
 if __name__ == "__main__":
     time.sleep(3)
     sensor = Sensing()
-    processor = Interpretation()
+    processor = Interpretation() #Interpretation(range)
     controller = Controller()
 
     try:
