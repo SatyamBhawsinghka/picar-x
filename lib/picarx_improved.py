@@ -248,10 +248,10 @@ class Picarx(object):
 #    @log_on_end(logging.DEBUG, "Get_distance finished")
     def Get_distance(self):
         timeout = 0.01
-        trig = Pin('D8')
-        echo = Pin('D9')
+        trig = Pin('D3')
+        echo = Pin('D4')
 
-        echo.low()
+        # echo.low()
         # print("Initial", echo.value())
         trig.low()
         time.sleep(0.01)
@@ -264,15 +264,15 @@ class Picarx(object):
         while echo.value() == 0:
             pulse_start = time.time()
             # print(echo.value())
-            # if pulse_start - timeout_start > timeout:
-            #     return -1
+            if pulse_start - timeout_start > timeout:
+                return -1
 
         while echo.value() == 1:
             pulse_end = time.time()
             # print(echo.value())
-            # if pulse_end - timeout_start > timeout:
-            #     return -2
-            break
+            if pulse_end - timeout_start > timeout:
+                return -2
+            # break
 
         during = pulse_end - pulse_start
         cm = round(during * 340 / 2 * 100, 2)
