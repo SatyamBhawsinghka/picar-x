@@ -43,7 +43,7 @@ class ControllerU(Picarx):
 
     def control(self, go):
         if go == 1:
-            self.forward(30)
+            self.forward(50)
             time.sleep(0.05)
 
         else:
