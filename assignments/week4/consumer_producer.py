@@ -28,6 +28,8 @@ def consumer(delay, processor_bus, controller):
         degree = processor_bus.read()
         print("Processor bus data", degree)
         controller.control(degree)
+        controller.forward(30)
+        time.sleep(0.05)
         time.sleep(delay)
 
 if __name__ == "__main__":

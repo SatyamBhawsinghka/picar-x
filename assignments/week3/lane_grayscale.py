@@ -74,7 +74,7 @@ class Interpretation(object):
                 r1 = data[0] / data[1]
                 r2 = data[2] / data[1]
             except:
-                print("Divided by zero, change default values") 
+                print("Divided by zero, change default values")
             if r1 > self.sensitivity and r2 > self.sensitivity:
                 # direction = 'center'
                 degree = 0
@@ -133,8 +133,7 @@ class Controller(Picarx):
             self.set_dir_servo_angle(40)
             time.sleep(0.01)
 
-        self.forward(30)
-        time.sleep(0.05)
+
 
 
 
@@ -154,6 +153,8 @@ if __name__ == "__main__":
             data = sensor.read()
             degree = processor.processing(data)
             controller.control(degree)
+            controller.forward(30)
+            time.sleep(0.05)
     except:
         print("Error in execution")
         atexit.register(controller.stop)
