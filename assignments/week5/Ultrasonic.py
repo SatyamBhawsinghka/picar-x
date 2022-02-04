@@ -61,11 +61,7 @@ if __name__ == "__main__":
 
     try:
         while True:
-            distance = sensor.read()
-            print(distance)
-            go = processor.processing(distance)
-            print(type(go), go)
-            controller.control(go)
+            controller.control(processor.processing(sensor.read()))
 
     except:
         print("Error in execution")
