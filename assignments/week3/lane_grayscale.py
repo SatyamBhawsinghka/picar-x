@@ -150,6 +150,7 @@ if __name__ == "__main__":
             controller.control(degree)
     except:
         print("Error in execution")
+        atexit.register(controller.stop)
 
     finally:
         atexit.register(controller.stop)
