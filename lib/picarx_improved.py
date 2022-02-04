@@ -267,7 +267,7 @@ class Picarx(object):
 
         while echo.value() == 1:
             pulse_end = time.time()
-            print(echo.value())
+            # print(echo.value())
             # if pulse_end - timeout_start > timeout:
             #     return -2
 
