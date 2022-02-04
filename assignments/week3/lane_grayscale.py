@@ -45,8 +45,11 @@ class Interpretation(object):
 
 
         if self.polarity == 0:
-            r1 = data[1] / data[0]
-            r2 = data[1] / data[2]
+            try:
+                r1 = data[1] / data[0]
+                r2 = data[1] / data[2]
+            except:
+                print("Divided by zero, change default values")
             if r1 > self.sensitivity and r2 > self.sensitivity:
                 #direction = 'center'
                 degree = 0
@@ -67,8 +70,11 @@ class Interpretation(object):
                 degree = 0
 
         if self.polarity == 1:
-            r1 = data[0] / data[1]
-            r2 = data[2] / data[1]
+            try:
+                r1 = data[0] / data[1]
+                r2 = data[2] / data[1]
+            except:
+                print("Divided by zero, change default values") 
             if r1 > self.sensitivity and r2 > self.sensitivity:
                 # direction = 'center'
                 degree = 0

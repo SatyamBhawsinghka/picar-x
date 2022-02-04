@@ -34,13 +34,13 @@ if __name__ == "__main__":
     sensor = Sensing()
     processor = Interpretation()
     controller = Controller()
-    sensor_bus = Bus([0, 0, 0])
+    sensor_bus = Bus([1, 1, 1])
     processor_bus = Bus(0)
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             sense = executor.submit(producer, 0.5, sensor_bus, sensor)
-            process = executor.submit(consumer_producer, 0.5, sensor_bus, processor_bus, processor)
+            process = executor.submit(consumer_producer, 0.1, sensor_bus, processor_bus, processor)
             control = executor.submit(consumer, 0.5, processor_bus, controller)
         # print(sense.result())
         # print(process.result())
