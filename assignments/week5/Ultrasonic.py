@@ -44,7 +44,7 @@ class Controller(Picarx):
             self.forward(30)
 
         else:
-            self.stop()
+            # self.stop()
 
 
 
