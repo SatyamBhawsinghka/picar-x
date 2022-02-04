@@ -23,7 +23,7 @@ class SensingU(Picarx):
 
 
 class InterpretationU(object):
-    def __init__(self, stopping_range=1):
+    def __init__(self, stopping_range=10):
         # Range in cm at which the car needs to be stopped
         self.stopping_range = stopping_range
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         while True:
             distance = sensor.read()
             print("processed", distance)
-            # controller.control(processor.processing(distance))
+            controller.control(processor.processing(distance))
             time.sleep(0.05)
     except:
         print("Error in execution")
