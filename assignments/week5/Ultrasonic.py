@@ -35,7 +35,7 @@ class Interpretation(object):
             return 0
 
 
- class Controller(Picarx):
+class Controller(Picarx):
     def __init__(self):
         super().__init__()
 
@@ -59,6 +59,7 @@ if __name__ == "__main__":
             distance = sensor.read()
             print(distance)
             controller.control(processor.processing(distance))
+            time.sleep(0.05)
     except:
         print("Error in execution")
         atexit.register(controller.stop)
