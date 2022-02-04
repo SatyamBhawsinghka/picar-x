@@ -44,10 +44,12 @@ class ControllerU(Picarx):
     def control(self, go):
         if go == 1:
             self.forward(30)
+            time.sleep(0.05)
 
         else:
             self.stop()
-            pass
+            time.sleep(0.05)
+
 
 
 
@@ -62,9 +64,9 @@ if __name__ == "__main__":
             distance = sensor.read()
             print(distance)
             go = processor.processing(distance)
-            print(go)
+            print(type(go), go)
             controller.control(go)
-            time.sleep(0.05)
+
     except:
         print("Error in execution")
         atexit.register(controller.stop)
