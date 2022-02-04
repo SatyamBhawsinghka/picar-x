@@ -45,6 +45,7 @@ class Controller(Picarx):
 
         else:
             # self.stop()
+            pass
 
 
 
