@@ -42,11 +42,11 @@ class ControllerU(Picarx):
         super().__init__()
 
     def control(self, go):
-        if go:
+        if go == 1:
             self.forward(30)
 
         else:
-            # self.stop()
+            self.stop()
             pass
 
 
