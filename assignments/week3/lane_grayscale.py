@@ -113,15 +113,20 @@ class Controller(Picarx):
         # else:
         #     self.set_dir_servo_angle(turn)
         #     time.sleep(0.01)
-        if degree == 0:
+        if turn == 0:
             self.stop()
             self.set_dir_servo_angle(0)
             time.sleep(0.01)
 
-        else:
+        elif abs(turn) < 40:
             self.set_dir_servo_angle(turn)
             time.sleep(0.01)
-
+        elif turn < 0:
+            self.set_dir_servo_angle(-40)
+            time.sleep(0.01)
+        else:
+            self.set_dir_servo_angle(40)
+            time.sleep(0.01)
 
         self.forward(30)
         time.sleep(0.05)
@@ -142,8 +147,10 @@ if __name__ == "__main__":
     try:
         while True:
             data = sensor.read()
-            data = processor.processing(data)
-            controller.control(data)
+            degree = processor.processing(data)
+            controller.control(degree)
+    except:
+        print("Error in execution")
 
     finally:
         atexit.register(controller.stop)
