@@ -40,7 +40,7 @@ class Interpretation(object):
 
     # Processing sensor data
     def processing(self, data):
-        direction = None
+        #direction = None
         degree = None
 
 
@@ -48,48 +48,48 @@ class Interpretation(object):
             r1 = data[1] / data[0]
             r2 = data[1] / data[2]
             if r1 > self.sensitivity and r2 > self.sensitivity:
-                direction = 'center'
+                #direction = 'center'
                 degree = 0
             elif r1 > self.sensitivity > r2:
-                direction = 'left'
+                #direction = 'left'
                 degree = r1 - r2
             elif r2 > self.sensitivity > r1:
-                direction = 'right'
-                degree = r2 - r1
+                #direction = 'right'
+                degree = r1 - r2
             elif (data[0] > self.sensitivity * data[1]) and (data[0] > self.sensitivity * data[2]):
-                direction = 'right'
-                degree = 2 * data[0] / (data[1] + data[2])
+                #direction = 'right'
+                degree = -2 * data[0] / (data[1] + data[2])
             elif (data[2] > self.sensitivity * data[1]) and (data[2] > self.sensitivity * data[0]):
-                direction = 'left'
+                #direction = 'left'
                 degree = 2 * data[2] / (data[1] + data[0])
             else:
-                direction = 'same'
+                #direction = 'same'
                 degree = 0
 
         if self.polarity == 1:
             r1 = data[0] / data[1]
             r2 = data[2] / data[1]
             if r1 > self.sensitivity and r2 > self.sensitivity:
-                direction = 'center'
+                # direction = 'center'
                 degree = 0
             elif r1 > self.sensitivity > r2:
-                direction = 'left'
+                # direction = 'left'
                 degree = r1 - r2
             elif r2 > self.sensitivity > r1:
-                direction = 'right'
-                degree = r2 - r1
+                # direction = 'right'
+                degree = r1 - r2
             else:
                 if data[1] > self.sensitivity * data[0] and data[2] > self.sensitivity * data[0]:
-                    direction = 'right'
-                    degree = 2 * data[0] / (data[1] + data[2])
+                    # direction = 'right'
+                    degree = -2 * data[0] / (data[1] + data[2])
                 if data[1] > self.sensitivity * data[2] and data[0] > self.sensitivity * data[2]:
-                    direction = 'left'
+                    # direction = 'left'
                     degree = 2 * data[2] / (data[1] + data[0])
                 else:
-                    direction = 'same'
+                    # direction = 'same'
                     degree = 0
 
-        return [direction, degree]
+        return degree
 
 
 class Controller(Picarx):
@@ -98,14 +98,22 @@ class Controller(Picarx):
         self.scaling_factor = scaling_factor
 
 
-    def control(self, direction, degree):
+    def control(self, degree):
 
         turn = int(self.scaling_factor * degree)
 
-        if direction == 'right':
-            turn = -1 * turn
-
-        if direction == 'same':
+        # if direction == 'right':
+        #     turn = -1 * turn
+        #
+        # if direction == 'same':
+        #     self.stop()
+        #     self.set_dir_servo_angle(0)
+        #     time.sleep(0.01)
+        #
+        # else:
+        #     self.set_dir_servo_angle(turn)
+        #     time.sleep(0.01)
+        if degree == 0:
             self.stop()
             self.set_dir_servo_angle(0)
             time.sleep(0.01)
@@ -113,6 +121,7 @@ class Controller(Picarx):
         else:
             self.set_dir_servo_angle(turn)
             time.sleep(0.01)
+
 
         self.forward(30)
         time.sleep(0.05)
@@ -134,8 +143,7 @@ if __name__ == "__main__":
         while True:
             data = sensor.read()
             data = processor.processing(data)
-            direction, degree = data[0], data[1]
-            controller.control(direction, degree)
+            controller.control(data)
 
     finally:
         atexit.register(controller.stop)
