@@ -31,7 +31,7 @@ class InterpretationU(object):
     def processing(self, distance):
         if distance < 0:
             return 1
-        elif distance < self.stopping_range:
+        elif distance > self.stopping_range:
             return 1
         else:
             return 0
