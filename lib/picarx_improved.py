@@ -261,17 +261,19 @@ class Picarx(object):
         timeout_start = time.time()
         while echo.value() == 0:
             pulse_start = time.time()
-            if pulse_start - timeout_start > timeout:
-                # return -1
-                pass
+            print(echo.value())
+            # if pulse_start - timeout_start > timeout:
+            #     return -1
+
         while echo.value() == 1:
             pulse_end = time.time()
-            if pulse_end - timeout_start > timeout:
-                #return -2
-                pass
+            print(echo.value())
+            # if pulse_end - timeout_start > timeout:
+            #     return -2
+
         during = pulse_end - pulse_start
         cm = round(during * 340 / 2 * 100, 2)
-        # print(cm)
+        print("distance ", cm)
         return cm
 
 
