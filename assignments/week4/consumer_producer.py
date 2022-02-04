@@ -18,15 +18,15 @@ def consumer_producer(delay, sensor_bus, processor_bus, processor):
     while True:
         data = sensor_bus.read()
         print("Sensor bus data", data)
-        data = processor.processing(data)
-        print("Processor data", data)
-        processor_bus.write(data)
+        degree = processor.processing(data)
+        print("Processor data", degree)
+        processor_bus.write(degree)
         time.sleep(delay)
 
 def consumer(delay, processor_bus, controller):
     while True:
         degree = processor_bus.read()
-        print("Processor bus data", data)
+        print("Processor bus data", degree)
         controller.control(degree)
         time.sleep(delay)
 
