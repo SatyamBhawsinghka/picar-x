@@ -9,7 +9,7 @@ import atexit
 def producer(delay, sensor_bus, sensor):
     while True:
         data = sensor.read()
-        # print("Sensor data", data)
+        print("Sensor data", data)
         sensor_bus.write(data)
         time.sleep(delay)
 
@@ -17,16 +17,16 @@ def producer(delay, sensor_bus, sensor):
 def consumer_producer(delay, sensor_bus, processor_bus, processor):
     while True:
         data = sensor_bus.read()
-        # print("Sensor bus data", data)
+        print("Sensor bus data", data)
         data = processor.processing(data)
-        # print("Processor data", data)
+        print("Processor data", data)
         processor_bus.write(data)
         time.sleep(delay)
 
 def consumer(delay, processor_bus, controller):
     while True:
         degree = processor_bus.read()
-        # print("Processor bus data", data)
+        print("Processor bus data", data)
         controller.control(degree)
         time.sleep(delay)
 
