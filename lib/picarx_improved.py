@@ -252,7 +252,7 @@ class Picarx(object):
         echo = Pin('D9')
 
         echo.low()
-        print("Initial", echo.value())
+        # print("Initial", echo.value())
         trig.low()
         time.sleep(0.01)
         trig.high()
@@ -263,15 +263,16 @@ class Picarx(object):
         timeout_start = time.time()
         while echo.value() == 0:
             pulse_start = time.time()
-            print(echo.value())
-            # if pulse_start - timeout_start > timeout:
-            #     return -1
+            # print(echo.value())
+            if pulse_start - timeout_start > timeout:
+                return -1
 
         while echo.value() == 1:
             pulse_end = time.time()
             # print(echo.value())
             # if pulse_end - timeout_start > timeout:
             #     return -2
+            break
 
         during = pulse_end - pulse_start
         cm = round(during * 340 / 2 * 100, 2)
