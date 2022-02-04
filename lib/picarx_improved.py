@@ -262,11 +262,13 @@ class Picarx(object):
         while echo.value() == 0:
             pulse_start = time.time()
             if pulse_start - timeout_start > timeout:
-                return -1
+                # return -1
+                pass
         while echo.value() == 1:
             pulse_end = time.time()
             if pulse_end - timeout_start > timeout:
-                return -2
+                #return -2
+                pass
         during = pulse_end - pulse_start
         cm = round(during * 340 / 2 * 100, 2)
         # print(cm)
