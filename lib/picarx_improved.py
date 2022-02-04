@@ -251,6 +251,8 @@ class Picarx(object):
         trig = Pin('D8')
         echo = Pin('D9')
 
+        echo.low()
+        print("Initial", echo.value())
         trig.low()
         time.sleep(0.01)
         trig.high()
