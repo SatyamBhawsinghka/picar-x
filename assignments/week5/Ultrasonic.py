@@ -6,7 +6,7 @@ import time
 import numpy
 
 
-class Sensing(Picarx):
+class SensingU(Picarx):
     def __init__(self):
         super().__init__()
 
@@ -22,20 +22,22 @@ class Sensing(Picarx):
         return avg
 
 
-class Interpretation(object):
+class InterpretationU(object):
     def __init__(self, stopping_range=1):
         # Range in cm at which the car needs to be stopped
         self.stopping_range = stopping_range
 
     # Processing sensor data
     def processing(self, distance):
-        if distance < self.stopping_range:
+        if distance < 0:
+            return 1
+        elif distance < self.stopping_range:
             return 1
         else:
             return 0
 
 
-class Controller(Picarx):
+class ControllerU(Picarx):
     def __init__(self):
         super().__init__()
 
@@ -51,9 +53,9 @@ class Controller(Picarx):
 
 if __name__ == "__main__":
     time.sleep(3)
-    sensor = Sensing()
-    processor = Interpretation() #Interpretation(range)
-    controller = Controller()
+    sensor = SensingU()
+    processor = InterpretationU() #Interpretation(range)
+    controller = ControllerU()
 
     try:
         while True:
