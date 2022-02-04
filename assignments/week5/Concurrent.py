@@ -22,14 +22,14 @@ if __name__ == "__main__":
     #Creating termination bus
     term_bus = ros.Bus(name="Termination")
     #Creating objects of producer, consumer-producer and consumer classes
-    ultra_p = ros.Producer(ultra_sensor.read(), ultra_sensor_bus, 0.05, term_bus, "Ultrasonic producer")
-    gray_p = ros.Producer(gray_sensor.read(), gray_sensor_bus, 0.05, term_bus, "Grayscale producer")
-    ultra_cp = ros.ConsumerProducer(ultra_processor.processing(), ultra_sensor_bus, ultra_processor_bus, 0.05, term_bus,
+    ultra_p = ros.Producer(ultra_sensor.read, ultra_sensor_bus, 0.05, term_bus, "Ultrasonic producer")
+    gray_p = ros.Producer(gray_sensor.read, gray_sensor_bus, 0.05, term_bus, "Grayscale producer")
+    ultra_cp = ros.ConsumerProducer(ultra_processor.processing, ultra_sensor_bus, ultra_processor_bus, 0.05, term_bus,
                                 "Ultrasonic Consumer Producer")
-    gray_cp = ros.ConsumerProducer(gray_processor.processing(), gray_sensor_bus, gray_processor_bus, 0.05, term_bus,
+    gray_cp = ros.ConsumerProducer(gray_processor.processing, gray_sensor_bus, gray_processor_bus, 0.05, term_bus,
                                 "Grayscale Consumer Producer")
-    ultra_c = ros.Consumer(ultra_controller.control(), ultra_processor_bus, 0.05, term_bus, "Ultrasonic Consumer")
-    gray_c = ros.Consumer(gray_controller.control(), gray_processor_bus, 0.05, term_bus, "Grayscale Consumer")
+    ultra_c = ros.Consumer(ultra_controller.control, ultra_processor_bus, 0.05, term_bus, "Ultrasonic Consumer")
+    gray_c = ros.Consumer(gray_controller.control, gray_processor_bus, 0.05, term_bus, "Grayscale Consumer")
     #Creating object of Timer class
     timer = ros.Timer(term_bus, 5, 0.05, term_bus, "Timer")
 
