@@ -114,7 +114,6 @@ class Controller(Picarx):
         #     self.set_dir_servo_angle(turn)
         #     time.sleep(0.01)
         if turn == 0:
-            self.stop()
             self.set_dir_servo_angle(0)
             time.sleep(0.01)
 
