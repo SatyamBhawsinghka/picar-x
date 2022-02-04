@@ -58,7 +58,7 @@ if __name__ == "__main__":
     try:
         while True:
             distance = sensor.read()
-            print(distance)
+            print("processed", distance)
             # controller.control(processor.processing(distance))
             time.sleep(0.05)
     except:
