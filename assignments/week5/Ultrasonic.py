@@ -59,7 +59,7 @@ if __name__ == "__main__":
         while True:
             distance = sensor.read()
             print(distance)
-            controller.control(processor.processing(distance))
+            # controller.control(processor.processing(distance))
             time.sleep(0.05)
     except:
         print("Error in execution")
