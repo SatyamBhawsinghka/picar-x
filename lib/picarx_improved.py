@@ -248,8 +248,8 @@ class Picarx(object):
 #    @log_on_end(logging.DEBUG, "Get_distance finished")
     def Get_distance(self):
         timeout = 0.01
-        trig = Pin('D8')
-        echo = Pin('D9')
+        trig = Pin('D3')
+        echo = Pin('D4')
 
         # echo.low()
         # print("Initial", echo.value())
