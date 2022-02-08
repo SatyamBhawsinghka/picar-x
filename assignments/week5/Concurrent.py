@@ -37,6 +37,9 @@ if __name__ == "__main__":
         ros.runConcurrently([ultra_p, gray_p, ultra_cp, gray_cp, ultra_c, gray_c, timer.timer()])
     except:
         print("error in execution")
+    finally:
+        ultra_controller.stop()
+        gray_controller.stop()
 
 
 
